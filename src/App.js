@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Input } from '@material-ui/core';
+import InstagramEmbed from 'react-instagram-embed';
 import { auth, db } from './firebase';
 import './App.css';
 import Post from './Post';
+import ImageUpload from './ImageUpload';
+import { appId, clientId } from './env';
 
 function getModalStyle() {
 	const top = 50;
 	const left = 50;
 	return {
+		position: `relative`,
 		top: `${top}%`,
 		left: `${left}%`,
 		transform: `translate(-${top}%, -${left}%)`,
@@ -42,7 +46,6 @@ function App() {
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged((authUser) => {
 			if (authUser) {
-				console.log(authUser)
 				setUser(authUser);
 			} else {
 				setUser(null);
@@ -55,7 +58,7 @@ function App() {
 	}, [user, username]);
 
 	useEffect(() => {
-		db.collection('posts').onSnapshot(snapshot => {
+		db.collection('posts').orderBy(`timestamp`, `desc`).onSnapshot(snapshot => {
 			setPosts(snapshot.docs.map(doc => ({
 				id: doc.id,
 				post: doc.data()
@@ -91,6 +94,7 @@ function App() {
 					<center>
 						<img className='app__headerImage' src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png' alt="" />
 					</center>
+					<p className='cross' onClick={() => setOpen(false)}>&times;</p>
 					<form action="" className='app__signup'>
 						<Input placeholder='username' type='text' value={username} onChange={e => setUsername(e.target.value)} />
 						<Input placeholder='email' type='text' value={email} onChange={e => setEmail(e.target.value)} />
@@ -104,6 +108,7 @@ function App() {
 					<center>
 						<img className='app__headerImage' src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png' alt="" />
 					</center>
+					<p className='cross' onClick={() => setOpenSignIn(false)}>&times;</p>
 					<form action="" className='app__signup'>
 						<Input placeholder='email' type='text' value={email} onChange={e => setEmail(e.target.value)} />
 						<Input placeholder='password' type='password' value={password} onChange={e => setPassword(e.target.value)} />
@@ -113,21 +118,33 @@ function App() {
 			</Modal>
 			<div className='app__header'>
 				<img className='app__headerImage' src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png' alt="" />
+				{
+					user ? (
+						<Button onClick={() => auth.signOut()}>Logout</Button>
+					) : (
+							<div className='loginContainer'>
+								<Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
+								<Button onClick={() => setOpen(true)}>Sign Up</Button>
+							</div>
+						)
+				}
+			</div>
+			<div className="max__width">
+				<div className="app__posts">
+					{
+						posts.map(({ id, post }) => (
+							<Post key={id} username={post.username} caption={post.caption} imgUrl={post.imgUrl} />
+						))
+					}
+				</div>
+				<InstagramEmbed className='app__posts' url='https://www.instagram.com/p/B5TAnXVHS0i/' clientAccessToken={appId + '|' + clientId} maxWidth={320} hideCaption={true} containerTagName='div' protocol='' injectScript onLoading={() => { }} onSuccess={() => { }} onAfterRender={() => { }} onFailure={() => { }} />
 			</div>
 			{
-				user ? (
-					<Button onClick={() => auth.signOut()}>Logout</Button>
+				user?.displayName ? (
+					<ImageUpload username={user.displayName} />
 				) : (
-						<div className='loginContainer'>
-							<Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
-							<Button onClick={() => setOpen(true)}>Sign Up</Button>
-						</div>
+						<h3>LogIn to Uplaod Images</h3>
 					)
-			}
-			{
-				posts.map(({ id, post }) => (
-					<Post key={id} username={post.username} caption={post.caption} imgUrl={post.imgUrl} />
-				))
 			}
 		</div>
 	);

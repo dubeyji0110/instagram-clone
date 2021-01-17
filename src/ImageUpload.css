@@ -1,0 +1,12 @@
+.uploader{
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 10px auto;
+    padding: 5px 10px;
+}
+
+.progressBar{
+    width: 100%;
+    margin-top: 5px;
+}

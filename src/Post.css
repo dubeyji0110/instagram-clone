@@ -1,9 +1,8 @@
 .post{
-    max-width: 500px;
+    width: 100%;
     background: white;
     border: 1px solid lightgray;
-    margin: auto;
-    margin-bottom: 45px;
+    margin-bottom: 35px;
 }
 
 .post__image{
