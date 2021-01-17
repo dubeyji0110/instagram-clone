@@ -47,11 +47,11 @@ function App() {
 			} else {
 				setUser(null);
 			}
-		})
+		});
 
 		return () => {
 			unsubscribe();
-		}
+		};
 	}, [user, username]);
 
 	useEffect(() => {
@@ -70,31 +70,31 @@ function App() {
 			.then(authUser => {
 				return authUser.user.updateProfile({
 					displayName: username
-				})
+				});
 			})
-			.catch(err => alert(err.message));		
+			.catch(err => alert(err.message));
 		setOpen(false);
-	}
+	};
 
 	const signIn = (e) => {
 		e.preventDefault();
 		auth
 			.signInWithEmailAndPassword(email, password)
-			.catch(err => alert(err.message))		
+			.catch(err => alert(err.message));
 		setOpenSignIn(false);
-	}
+	};
 
 	return (
 		<div className="app">
 			<Modal open={open} onClose={() => setOpen(false)}>
 				<div style={modalStyle} className={classes.paper}>
 					<center>
-						<img className="app__headerImage" src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" alt="" />
+						<img className='app__headerImage' src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png' alt="" />
 					</center>
 					<form action="" className='app__signup'>
-						<Input placeholder='username' type='text' value={username} onChange={(e) => setUsername(e.target.value)} />
-						<Input placeholder='email' type='text' value={email} onChange={(e) => setEmail(e.target.value)} />
-						<Input placeholder='password' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+						<Input placeholder='username' type='text' value={username} onChange={e => setUsername(e.target.value)} />
+						<Input placeholder='email' type='text' value={email} onChange={e => setEmail(e.target.value)} />
+						<Input placeholder='password' type='password' value={password} onChange={e => setPassword(e.target.value)} />
 						<Button onClick={signUp}>Sign Up</Button>
 					</form>
 				</div>
@@ -102,17 +102,17 @@ function App() {
 			<Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
 				<div style={modalStyle} className={classes.paper}>
 					<center>
-						<img className="app__headerImage" src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" alt="" />
+						<img className='app__headerImage' src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png' alt="" />
 					</center>
 					<form action="" className='app__signup'>
-						<Input placeholder='email' type='text' value={email} onChange={(e) => setEmail(e.target.value)} />
-						<Input placeholder='password' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+						<Input placeholder='email' type='text' value={email} onChange={e => setEmail(e.target.value)} />
+						<Input placeholder='password' type='password' value={password} onChange={e => setPassword(e.target.value)} />
 						<Button onClick={signIn}>Sign In</Button>
 					</form>
 				</div>
 			</Modal>
-			<div className="app__header">
-				<img className="app__headerImage" src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" alt="" />
+			<div className='app__header'>
+				<img className='app__headerImage' src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png' alt="" />
 			</div>
 			{
 				user ? (
