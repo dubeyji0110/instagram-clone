@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Input } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
 import InstagramEmbed from 'react-instagram-embed';
+import { Button, Input } from '@material-ui/core';
+import Modal from '@material-ui/core/Modal';
+import ImageUpload from './ImageUpload';
+import { appId, clientId } from './env';
 import { auth, db } from './firebase';
 import './App.css';
 import Post from './Post';
-import ImageUpload from './ImageUpload';
-import { appId, clientId } from './env';
 
 function getModalStyle() {
 	const top = 50;
@@ -120,7 +120,10 @@ function App() {
 				<img className='app__headerImage' src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png' alt="" />
 				{
 					user ? (
-						<Button onClick={() => auth.signOut()}>Logout</Button>
+						<div style={{ display: 'flex', alignItems: 'center' }}>
+							<p style={{textDecoration: 'underline', cursor: 'pointer'}}>{user.displayName}</p>
+							<Button onClick={() => auth.signOut()}>Logout</Button>
+						</div>
 					) : (
 							<div className='loginContainer'>
 								<Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
@@ -133,7 +136,7 @@ function App() {
 				<div className="app__posts">
 					{
 						posts.map(({ id, post }) => (
-							<Post key={id} username={post.username} caption={post.caption} imgUrl={post.imgUrl} />
+							<Post key={id} postId={id} user={user} username={post.username} caption={post.caption} imgUrl={post.imgUrl} />
 						))
 					}
 				</div>
@@ -143,7 +146,7 @@ function App() {
 				user?.displayName ? (
 					<ImageUpload username={user.displayName} />
 				) : (
-						<h3>LogIn to Uplaod Images</h3>
+						<center><h3 style={{ marginBottom: '10px' }}>LogIn to Uplaod Images</h3></center>
 					)
 			}
 		</div>

@@ -19,7 +19,7 @@ function ImageUpload({ username }) {
     const handleUpload = () => {
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
         uploadTask.on(
-            'state_changed',
+            firebase.storage.TaskEvent.STATE_CHANGED,
             (snapshot) => {
                 const progress = Math.round(
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100

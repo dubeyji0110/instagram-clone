@@ -1,3 +1,7 @@
+*{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .post{
     width: 100%;
     background: white;
@@ -15,14 +19,74 @@
 .post__text{
     font-weight: normal;
     padding: 10px;
+    padding-top: 0;
+}
+
+.post__comments{
+    padding: 10px;
+    padding-top: 0;
+}
+
+.flex1{
+    display: flex;
+    align-items: center;    
+    flex: 1;
+}
+
+.flex0{
+    flex: 0;
+    display: flex;
+    align-items: center;
 }
 
 .post__header{
     display: flex;
-    align-items: center;
     padding: 10px;
 }
 
 .post__avatar{
     margin-right: 10px;
+}
+
+.post__commentBox{
+    display: flex;
+    margin-bottom: 2px;
+    padding: 15px 20px;
+    border-top: 1px solid lightgray;
+}
+
+.post__input{
+    flex: 1;
+}
+
+.post__button{
+    flex: 0;
+    background: transparent;
+    color: #0095f6 !important;
+}
+
+.MuiButton-root{
+    text-transform: none !important;
+}
+
+.post__button:disabled{
+    color: gray !important;
+}
+
+.control__div{
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.like__div{
+    flex: 1;
+}
+
+.like__div svg{
+    margin-right: 15px;
+}
+
+.bookmark__div{
+    flex: 0;
 }
