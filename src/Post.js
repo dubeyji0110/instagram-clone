@@ -67,7 +67,7 @@ function Post({ postId, user, username, caption, imgUrl }) {
                         {
                             comments.map(comment => (
                                 <p>
-                                    <strong>{comment.username}</strong> {comment.text}
+                                    <strong>{comment.username}</strong> {(comment.text).slice(0, 50)}
                                 </p>
                             ))
                         }

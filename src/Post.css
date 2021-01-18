@@ -25,6 +25,8 @@
 .post__comments{
     padding: 10px;
     padding-top: 0;
+    overflow: auto;
+    max-width: 100%;
 }
 
 .flex1{
