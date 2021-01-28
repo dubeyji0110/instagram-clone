@@ -88,67 +88,147 @@ function App() {
 	};
 
 	return (
-		<div className="app">
+		<div className='app'>
 			<Modal open={open} onClose={() => setOpen(false)}>
 				<div style={modalStyle} className={classes.paper}>
 					<center>
-						<img className='app__headerImage' src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png' alt="" />
+						<img
+							className='app__headerImage'
+							src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png'
+							alt=''
+						/>
 					</center>
-					<p className='cross' onClick={() => setOpen(false)}>&times;</p>
-					<form action="" className='app__signup'>
-						<Input placeholder='username' type='text' value={username} onChange={e => setUsername(e.target.value)} />
-						<Input placeholder='email' type='text' value={email} onChange={e => setEmail(e.target.value)} />
-						<Input placeholder='password' type='password' value={password} onChange={e => setPassword(e.target.value)} />
-						<Button onClick={signUp}>Sign Up</Button>
+					<p className='cross' onClick={() => setOpen(false)}>
+						&times;
+					</p>
+					<form action='' className='app__signup'>
+						<Input
+							required
+							placeholder='username'
+							type='text'
+							value={username}
+							onChange={(e) => setUsername(e.target.value)}
+						/>
+						<Input
+							required
+							placeholder='email'
+							type='text'
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+						/>
+						<Input
+							required
+							placeholder='password'
+							type='password'
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+						/>
+						<Button
+							disabled={!(username && password && email)}
+							onClick={signUp}>
+							Sign Up
+						</Button>
 					</form>
 				</div>
 			</Modal>
 			<Modal open={openSignIn} onClose={() => setOpenSignIn(false)}>
 				<div style={modalStyle} className={classes.paper}>
 					<center>
-						<img className='app__headerImage' src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png' alt="" />
+						<img
+							className='app__headerImage'
+							src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png'
+							alt=''
+						/>
 					</center>
-					<p className='cross' onClick={() => setOpenSignIn(false)}>&times;</p>
-					<form action="" className='app__signup'>
-						<Input placeholder='email' type='text' value={email} onChange={e => setEmail(e.target.value)} />
-						<Input placeholder='password' type='password' value={password} onChange={e => setPassword(e.target.value)} />
-						<Button onClick={signIn}>Sign In</Button>
+					<p className='cross' onClick={() => setOpenSignIn(false)}>
+						&times;
+					</p>
+					<form action='' className='app__signup'>
+						<Input
+							required
+							placeholder='email'
+							type='text'
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+						/>
+						<Input
+							required
+							placeholder='password'
+							type='password'
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+						/>
+						<Button
+							disabled={!(password && email)}
+							onClick={signIn}>
+							Sign In
+						</Button>
 					</form>
 				</div>
 			</Modal>
 			<div className='app__header'>
-				<img className='app__headerImage' src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png' alt="" />
-				{
-					user ? (
-						<div style={{ display: 'flex', alignItems: 'center' }}>
-							<p style={{textDecoration: 'underline', cursor: 'pointer'}}>{user.displayName}</p>
-							<Button onClick={() => auth.signOut()}>Logout</Button>
-						</div>
-					) : (
-							<div className='loginContainer'>
-								<Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
-								<Button onClick={() => setOpen(true)}>Sign Up</Button>
-							</div>
-						)
-				}
-			</div>
-			<div className="max__width">
-				<div className="app__posts">
-					{
-						posts.map(({ id, post }) => (
-							<Post key={id} postId={id} user={user} username={post.username} caption={post.caption} imgUrl={post.imgUrl} />
-						))
-					}
-				</div>
-				<InstagramEmbed className='app__posts' url='https://www.instagram.com/p/B5TAnXVHS0i/' clientAccessToken={appId + '|' + clientId} maxWidth={320} hideCaption={true} containerTagName='div' protocol='' injectScript onLoading={() => { }} onSuccess={() => { }} onAfterRender={() => { }} onFailure={() => { }} />
-			</div>
-			{
-				user?.displayName ? (
-					<ImageUpload username={user.displayName} />
+				<img
+					className='app__headerImage'
+					src='https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png'
+					alt=''
+				/>
+				{user ? (
+					<div style={{ display: "flex", alignItems: "center" }}>
+						<p
+							style={{
+								textDecoration: "underline",
+								cursor: "pointer",
+							}}>
+							{user.displayName}
+						</p>
+						<Button onClick={() => auth.signOut()}>Logout</Button>
+					</div>
 				) : (
-						<center><h3 style={{ marginBottom: '10px' }}>LogIn to Uplaod Images</h3></center>
-					)
-			}
+					<div className='loginContainer'>
+						<Button onClick={() => setOpenSignIn(true)}>
+							Sign In
+						</Button>
+						<Button onClick={() => setOpen(true)}>Sign Up</Button>
+					</div>
+				)}
+			</div>
+			<div className='max__width'>
+				<div className='app__posts'>
+					{posts.map(({ id, post }) => (
+						<Post
+							key={id}
+							postId={id}
+							user={user}
+							username={post.username}
+							caption={post.caption}
+							imgUrl={post.imgUrl}
+						/>
+					))}
+				</div>
+				<InstagramEmbed
+					className='app__posts'
+					url='https://www.instagram.com/p/B5TAnXVHS0i/'
+					clientAccessToken={appId + "|" + clientId}
+					maxWidth={320}
+					hideCaption={true}
+					containerTagName='div'
+					protocol=''
+					injectScript
+					onLoading={() => {}}
+					onSuccess={() => {}}
+					onAfterRender={() => {}}
+					onFailure={() => {}}
+				/>
+			</div>
+			{user?.displayName ? (
+				<ImageUpload username={user.displayName} />
+			) : (
+				<center>
+					<h3 style={{ marginBottom: "10px" }}>
+						LogIn to Uplaod Images
+					</h3>
+				</center>
+			)}
 		</div>
 	);
 }

@@ -2,6 +2,19 @@
 	margin: 0;
 }
 
+::-webkit-scrollbar {
+	width: 0.25rem;
+}
+
+::-webkit-scrollbar-track {
+	background: #eee;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #292929;
+	border-radius: 99px;
+}
+
 .app {
 	background: #fafafa;
 }
@@ -11,11 +24,11 @@
 }
 
 .cross {
-  position: absolute;
-  top: 0;
-  right: 2%;
-  font-size: 20px;
-  cursor: pointer;
+	position: absolute;
+	top: 0;
+	right: 2%;
+	font-size: 20px;
+	cursor: pointer;
 }
 
 .app__header {
@@ -35,20 +48,26 @@
 	flex-direction: column;
 }
 
-.app__posts{
+.app__posts {
+	position: sticky;
 	padding: 5px 10px;
+	top: 57px;
 	margin: auto;
 	margin-top: 0;
 }
 
-.max__width{	
+.max__width {
 	max-width: 850px;
 	margin: auto;
 	display: flex;
 }
 
 @media only screen and (max-width: 786px) {
-	.max__width{
+	.max__width {
 		flex-direction: column;
+	}
+
+	.app__posts {
+		position: static;
 	}
 }
